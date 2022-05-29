@@ -52,7 +52,11 @@ internal class UrlShortenerService : IUrlShortenerService
         {
             Url? url = await _urlRepositoryAsync.GetByShortUrl(shortUrl);
             if (url is not null)
+            {
+                url.VisitsCount++;
+                await _urlRepositoryAsync.UpdateAsync(url);
                 ResponseBaseHelperMethods.SuccessResponse(contentData: url.OriginalUrl);
+            }
             else ResponseBaseHelperMethods.NotFoundResponse<string>(message: "Not Found");
         }
         catch (Exception ex)
