@@ -22,20 +22,14 @@ internal class UrlShortenerService : IUrlShortenerService
                 response = ResponseBaseHelperMethods.BadRequestResponse<string>(message: "Url is null or empty");
             else
             {
-                Uri? uriResult;
-                if (Uri.TryCreate(originalUrl, UriKind.Absolute, out uriResult) &&
-                    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
+                Url url = await _urlRepositoryAsync.AddAsync(entity: new Url()
                 {
-                    Url url = await _urlRepositoryAsync.AddAsync(entity: new Url()
-                    {
-                        OriginalUrl = originalUrl,
-                        VisitsCount = 0
-                    });
-                    url.ShortUrl = UrlShortenerHelperMethods.Encode(url.Id);
-                    await _urlRepositoryAsync.UpdateAsync(url);
-                    response = ResponseBaseHelperMethods.SuccessResponse(url.ShortUrl);
-                }
-                else response = ResponseBaseHelperMethods.BadRequestResponse<string>(message: "Url is not valid");
+                    OriginalUrl = originalUrl,
+                    VisitsCount = 0
+                });
+                url.ShortUrl = UrlShortenerHelperMethods.Encode(url.Id);
+                await _urlRepositoryAsync.UpdateAsync(url);
+                response = ResponseBaseHelperMethods.SuccessResponse(url.ShortUrl);
             }
         }
         catch (Exception ex)
