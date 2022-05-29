@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Core.Application", "Source\Core\UrlShortener.Core.Application\UrlShortener.Core.Application.csproj", "{CE5EA569-3D40-4FFB-AA7F-697EE061E75C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{B4F63132-54D1-4BC3-A8AC-0C7CBADF813C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Presentation.API", "Source\Presentation\UrlShortener.Presentation.API\UrlShortener.Presentation.API.csproj", "{B8B748AA-30FE-4B1A-8477-BC6121281944}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{CE5EA569-3D40-4FFB-AA7F-697EE061E75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE5EA569-3D40-4FFB-AA7F-697EE061E75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE5EA569-3D40-4FFB-AA7F-697EE061E75C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8B748AA-30FE-4B1A-8477-BC6121281944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B748AA-30FE-4B1A-8477-BC6121281944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B748AA-30FE-4B1A-8477-BC6121281944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B748AA-30FE-4B1A-8477-BC6121281944}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +51,8 @@ Global
 		{1F9535C6-B0BF-4896-9A4C-5E02FE094382} = {DE5E6197-BE0F-4E23-BE90-3AA1AECA286F}
 		{810AA498-FB8C-4720-B40A-A2B5ECACF0D0} = {1F9535C6-B0BF-4896-9A4C-5E02FE094382}
 		{CE5EA569-3D40-4FFB-AA7F-697EE061E75C} = {B8AFADF2-A882-40E6-A9FF-6988FEDA37A7}
+		{B4F63132-54D1-4BC3-A8AC-0C7CBADF813C} = {DE5E6197-BE0F-4E23-BE90-3AA1AECA286F}
+		{B8B748AA-30FE-4B1A-8477-BC6121281944} = {B4F63132-54D1-4BC3-A8AC-0C7CBADF813C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1588BA26-A078-4EF5-A841-97899B51B262}
