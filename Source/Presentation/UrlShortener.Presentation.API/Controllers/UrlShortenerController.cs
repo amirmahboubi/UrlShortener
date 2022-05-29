@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using UrlShortener.Core.Application.DataTransferObjects.ServicesDTOs._Shared;
+﻿using System.Net;
+using Microsoft.AspNetCore.Mvc;
 using UrlShortener.Core.Application.Interfaces.IServices;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using UrlShortener.Core.Application.DataTransferObjects.ServicesDTOs._Shared;
 
 namespace UrlShortener.Presentation.API.Controllers
 {
