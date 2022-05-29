@@ -19,6 +19,6 @@ internal class _GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T :
         return entity;
     }
 
-    public async Task<T?> GetByIdAsync(int id) =>
+    public async Task<T?> GetByIdAsync(long id) =>
             await _dbContext.Set<T>().FindAsync(id);
 }
