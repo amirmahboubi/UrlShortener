@@ -16,7 +16,7 @@ namespace UrlShortener.Presentation.API.Controllers
             _urlShortenerService = urlShortenerService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{shortUrl}")]
         public async Task<IActionResult> Get(string shortUrl)
         {
             ResponseBase<string> response = await _urlShortenerService.GetOriginalUrl(shortUrl);
