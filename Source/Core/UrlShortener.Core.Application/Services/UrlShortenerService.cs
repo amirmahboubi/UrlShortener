@@ -1,8 +1,8 @@
-﻿using UrlShortener.Core.Application.Interfaces.IServices;
-using UrlShortener.Core.Application.DataTransferObjects.ServicesDTOs._Shared;
-using UrlShortener.Core.Application.Interfaces.IPersistenceRepositories;
-using UrlShortener.Core.Domain.Entities;
+﻿using UrlShortener.Core.Domain.Entities;
 using UrlShortener.Core.Application.Helpers;
+using UrlShortener.Core.Application.Interfaces.IServices;
+using UrlShortener.Core.Application.Interfaces.IPersistenceRepositories;
+using UrlShortener.Core.Application.DataTransferObjects.ServicesDTOs._Shared;
 
 namespace UrlShortener.Core.Application.Services;
 
@@ -10,7 +10,7 @@ internal class UrlShortenerService : IUrlShortenerService
 {
     private readonly IUrlRepositoryAsync _urlRepositoryAsync;
 
-    public UrlShortenerService(IUrlRepositoryAsync urlRepositoryAsync) => 
+    public UrlShortenerService(IUrlRepositoryAsync urlRepositoryAsync) =>
         _urlRepositoryAsync = urlRepositoryAsync;
 
     public async Task<ResponseBase<string>> GenerateShortUrl(string originalUrl)
@@ -20,13 +20,22 @@ internal class UrlShortenerService : IUrlShortenerService
         {
             if (string.IsNullOrWhiteSpace(originalUrl))
                 response = ResponseBaseHelperMethods.BadRequestResponse<string>(message: "Url is null or empty");
-            else {
-                Url url = await _urlRepositoryAsync.AddAsync(entity: new Url()
+            else
+            {
+                Uri? uriResult;
+                if (Uri.TryCreate(originalUrl, UriKind.Absolute, out uriResult) &&
+                    (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
                 {
-                    OriginalUrl = originalUrl,
-                    VisitsCount = 0,
-                });
-                response = ResponseBaseHelperMethods.SuccessResponse(url.ShortUrl);
+                    Url url = await _urlRepositoryAsync.AddAsync(entity: new Url()
+                    {
+                        OriginalUrl = originalUrl,
+                        VisitsCount = 0
+                    });
+                    url.ShortUrl = UrlShortenerHelperMethods.Encode(url.Id);
+                    await _urlRepositoryAsync.UpdateAsync(url);
+                    response = ResponseBaseHelperMethods.SuccessResponse(url.ShortUrl);
+                }
+                else response = ResponseBaseHelperMethods.BadRequestResponse<string>(message: "Url is not valid");
             }
         }
         catch (Exception ex)
@@ -36,8 +45,20 @@ internal class UrlShortenerService : IUrlShortenerService
         return response;
     }
 
-    public Task<ResponseBase<string>> GetOriginalUrl(string shortUrl)
+    public async Task<ResponseBase<string>> GetOriginalUrl(string shortUrl)
     {
-        throw new NotImplementedException();
+        ResponseBase<string> response = new();
+        try
+        {
+            Url? url = await _urlRepositoryAsync.GetByShortUrl(shortUrl);
+            if (url is not null)
+                ResponseBaseHelperMethods.SuccessResponse(contentData: url.OriginalUrl);
+            else ResponseBaseHelperMethods.NotFoundResponse<string>(message: "Not Found");
+        }
+        catch (Exception ex)
+        {
+            response = ResponseBaseHelperMethods.ExceptionResponse<string>(ex);
+        }
+        return response;
     }
 }
