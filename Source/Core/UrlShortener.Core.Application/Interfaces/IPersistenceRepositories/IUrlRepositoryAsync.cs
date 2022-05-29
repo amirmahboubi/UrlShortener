@@ -4,5 +4,5 @@ namespace UrlShortener.Core.Application.Interfaces.IPersistenceRepositories;
 
 public interface IUrlRepositoryAsync : IGenericRepositoryAsync<Url>
 {
-    Task<string?> GetOriginalUrlByShortUrl(string shortUrl);
+    Task<Url?> GetByShortUrl(string shortUrl);
 }
