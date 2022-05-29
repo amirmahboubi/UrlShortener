@@ -21,4 +21,10 @@ internal class _GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T :
 
     public async Task<T?> GetByIdAsync(long id) =>
             await _dbContext.Set<T>().FindAsync(id);
+
+    public async Task UpdateAsync(T entity)
+    {
+        _dbContext.Entry(entity).State = EntityState.Modified;
+        await _dbContext.SaveChangesAsync();
+    }
 }
