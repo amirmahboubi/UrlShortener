@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Core\UrlShortener.Core.Application\UrlShortener.Core.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\UrlShortener.Infrastructure.Persistence\UrlShortener.Infrastructure.Persistence.csproj" />
   </ItemGroup>
