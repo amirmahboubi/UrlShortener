@@ -1,4 +1,4 @@
-﻿using UrlShortener.Core.Application.Interfaces.DataTransferObjects.ServicesDTOs._Shared;
+﻿using UrlShortener.Core.Application.DataTransferObjects.ServicesDTOs._Shared;
 
 namespace UrlShortener.Core.Application.Interfaces.IServices;
 
