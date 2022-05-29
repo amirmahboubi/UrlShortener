@@ -55,9 +55,9 @@ internal class UrlShortenerService : IUrlShortenerService
             {
                 url.VisitsCount++;
                 await _urlRepositoryAsync.UpdateAsync(url);
-                ResponseBaseHelperMethods.SuccessResponse(contentData: url.OriginalUrl);
+                response = ResponseBaseHelperMethods.SuccessResponse(contentData: url.OriginalUrl);
             }
-            else ResponseBaseHelperMethods.NotFoundResponse<string>(message: "Not Found");
+            else response = ResponseBaseHelperMethods.NotFoundResponse<string>(message: "Not Found");
         }
         catch (Exception ex)
         {
